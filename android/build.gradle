@@ -68,7 +68,7 @@ logger.warn("VisionCamera: Building with ${FOR_HERMES ? "Hermes" : "JSC"}...")
 
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['VisionCamera_kotlinVersion']
+  def kotlin_version = '1.8.10'
 
   repositories {
     google()
@@ -202,6 +202,12 @@ android {
     extractHeaders
     extractJNI
   }
+
+  kotlinOptions {
+    freeCompilerArgs = ['-Xjvm-default=all']
+    freeCompilerArgs = ['-Xskip-metadata-version-check']
+    jvmTarget = "1.8"
+  }
 }
 
 repositories {
@@ -309,7 +315,7 @@ dependencies {
     extractJNI(files(reaAAR))
   }
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.0"
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.5.2"
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
 
